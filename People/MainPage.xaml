@@ -37,6 +37,11 @@
                     Grid.Row="2"
                     Command="{Binding GetAllCommand}" />
 
+                <Label x:Name="statusMessage_ariel"
+                    TextColor="{StaticResource Black}"
+                    Text="{Binding status}"
+                    Grid.Row="3" />
+
                 <CollectionView 
                 x:Name="peopleList_ariel" 
                 Grid.Row="4" 
