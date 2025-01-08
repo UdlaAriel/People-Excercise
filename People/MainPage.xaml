@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:model="clr-namespace:People.Models"
+             xmlns:local="clr-namespace:People"
+             x:Class="People.MainPage" 
+             BackgroundColor="{DynamicResource Light}">
+    
+    <ContentPage.BindingContext>
+        <local:MainViewModel/>
+    </ContentPage.BindingContext>
+
+    <ScrollView>
+        <VerticalStackLayout Padding="50" Spacing="30">
+            <Grid ColumnDefinitions="0.25*,*" BackgroundColor="{StaticResource Primary}">
+                <Image Source="selfie.jpg"/>
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center" HorizontalOptions="Center">
+                    <Label Text="ARIEL ANCHAPAXI" TextColor="{StaticResource White}" FontSize="Title" FontAttributes="Bold"/>
+                    <Label Text="Future Enginner if God wants ;)" TextColor="{StaticResource Gray950}" FontSize="Small"/>
+                </VerticalStackLayout>
+            </Grid>
+
+            <Grid Padding="5" RowSpacing="20" ColumnSpacing="5" RowDefinitions="Auto,Auto,Auto,Auto,*">
+                <Entry x:Name="newPerson_ariel"
+                    Placeholder="Enter name" 
+                    Text="{Binding currentName}"/>
+
+                <Button x:Name="addPersonButton_ariel"
+                    Text="Add Person"
+                    TextColor="{StaticResource White}"
+                    Grid.Row="1"
+                    Command="{Binding AddPersonCommand}" />
+
+                <Button x:Name="getAllButton_ariel"
+                    Text="Get All People"
+                    TextColor="{StaticResource White}"
+                    Grid.Row="2"
+                    Command="{Binding GetAllCommand}" />
+
+                <CollectionView 
+                x:Name="peopleList_ariel" 
+                Grid.Row="4" 
+                ItemsSource="{Binding list}"
+                SelectedItem="{Binding selectedPerson}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid ColumnDefinitions="*,*,*">
+                                <Label Text="{Binding Id}" TextColor="{StaticResource Black}"/>
+                                <Label Grid.Column="1" Text="{Binding Name}" TextColor="{StaticResource Black}"/>
+                                <Button Text="Delete"
+                                    Background="{StaticResource Tertiary}"
+                                    Grid.Column="2"
+                                    Command="{Binding Source={x:Reference peopleList_ariel}, Path=BindingContext.DeleteCommand}"
+                                    CommandParameter="{Binding .}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
